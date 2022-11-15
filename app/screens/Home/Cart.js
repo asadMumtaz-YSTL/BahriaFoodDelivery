@@ -94,19 +94,21 @@ const Cart = ({ route, props }) => {
                                         <Text style={styles.quantity}>{item.products_quantity}</Text>
 
                                         <TouchableOpacity activeOpacity={0.8} style={[styles.link, { backgroundColor: Colors.primaryColor }]}
-                                            onPress={(() => {
+                                            onPress={() => {
                                                 increement(item.products_quantity + 1, index)
-                                            })}
+                                            }}
                                         >
                                             <Text style={styles.linkText}>{`+`}</Text>
                                         </TouchableOpacity>
                                     </View>
 
-                                    <TouchableOpacity onPress={(() => {
-                                        Alert.alert('Alert', `Delete this item... ${item.product_name}`)
-                                        deleteItem(item.id)
-                                        // Totall()
-                                    })}>
+                                    <TouchableOpacity
+                                        activeOpacity={0.8}
+                                        onPress={() => {
+                                            Alert.alert('Alert', `Delete this item... ${item.product_name}`)
+                                            deleteItem(item.id)
+                                        }}
+                                    >
                                         <Image source={trash} style={styles.trash} />
                                     </TouchableOpacity>
                                 </View>
@@ -116,11 +118,9 @@ const Cart = ({ route, props }) => {
                 </View>
             </ScrollView>
 
-            <View style={{ width: width, backgroundColor: 'white', paddingVertical: 10, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 15 }}>
+            <View style={styles.footer}>
 
-                <Text style={styles.totalText}>
-                    TOTAL:   {total}
-                </Text>
+                <Text style={styles.totalText}>{`TOTAL:   ${total}`}</Text>
 
                 <TouchableOpacity
                     style={{ marginRight: 10 }} activeOpacity={0.8}
@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
     },
     quantity: {
         marginHorizontal: 10,
+        color: Colors.black,
         fontWeight: '500',
         fontSize: 14,
     },
@@ -201,18 +202,29 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         borderRadius: 5,
         height: 25,
-        width: 25,
     },
     linkText: {
         color: Colors.white,
         fontWeight: '500',
         fontSize: 18,
+        marginTop: -10,
+        padding: 5
     },
     trash: {
         marginBottom: 6,
         marginLeft: 15,
         height: 25,
         width: 20,
+    },
+
+
+    footer: {
+        justifyContent: 'space-between',
+        backgroundColor: 'white',
+        paddingHorizontal: 15,
+        flexDirection: 'row',
+        paddingVertical: 10,
+        width: width,
     },
     totalText: {
         color: Colors.primaryColor,

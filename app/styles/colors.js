@@ -12,4 +12,4 @@ export const Colors = {
     primaryTextColor: '',
     grayLight: '#C3C3C3',
     gold: '#FFD05A',
-};
+}

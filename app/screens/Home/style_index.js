@@ -1,6 +1,6 @@
 import { StyleSheet, Platform, Dimensions } from 'react-native';
 import { Colors } from '../../styles/colors';
-const { width, heaight } = Dimensions.get('window')
+const { width, height } = Dimensions.get('window')
 
 export const styles = StyleSheet.create({
     container: {
@@ -8,7 +8,22 @@ export const styles = StyleSheet.create({
         flex: 1,
     },
     content: {
-        // paddingHorizontal: 20,
+        // paddingBottom: 60,
+    },
+    welcomeBox: {
+        width: '100%',
+        height: 50,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: Colors.primaryColor
+    },
+    welcomeText: {
+        paddingHorizontal: 20,
+        color: Colors.white,
+        fontWeight: 'bold',
+        letterSpacing: 0.9,
+        lineHeight: 35,
+        fontSize: 20,
     },
     heading: {
         paddingHorizontal: 20,
@@ -16,10 +31,10 @@ export const styles = StyleSheet.create({
         fontWeight: 'bold',
         letterSpacing: 0.9,
         lineHeight: 35,
-        fontSize: 28,
+        fontSize: 24,
     },
     input: {
-        backgroundColor: Colors.textInputBG,
+        backgroundColor: Colors.white,
         textTransform: 'lowercase',
         justifyContent: 'center',
         color: Colors.textLight,

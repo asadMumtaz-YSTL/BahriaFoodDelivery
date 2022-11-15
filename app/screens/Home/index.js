@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react"
 import {
     ActivityIndicator,
     TouchableOpacity,
@@ -10,10 +10,10 @@ import {
     View,
     Text,
 } from 'react-native'
-import { Colors } from "../../styles/colors";
-import { styles } from "./style";
+import { Colors } from "../../styles/colors"
+import { styles } from "./style_index"
 import { AppCategories } from '../constantData/Data'
-import StoreCard from './components/StoreCard';
+import StoreCard from './components/StoreCard'
 
 const Home = ({ navigation, text, ...props }) => {
 
@@ -21,20 +21,11 @@ const Home = ({ navigation, text, ...props }) => {
     const [activeCategory, setActiveCategory] = useState(1)
     const [search, setSearch] = useState('')
     const [visibleSearch, setVisibleSearch] = useState(false)
-    const [filteredData, setFilteredData] = useState([]);
-
-    // GET STORES FROM APIS
-    // useEffect(() => {
-    //     fetch('https://bahriadelivery.com/api/stores')
-    //         .then(response => response.json())
-    //         .then(json => setShops(json))
-    //         .catch(error => console.error(error))
-    //         .finally();
-    // }, []);
+    const [filteredData, setFilteredData] = useState([])
 
     // SEARCH SHOP
-    const SearchShop = (shop) => {
-        const result = shops.filter(item => item?.name?.includes(shop))
+    const SearchShop = () => {
+        const result = shops.filter(item => item?.name?.includes(search))
         setFilteredData(result)
     }
 
@@ -46,7 +37,6 @@ const Home = ({ navigation, text, ...props }) => {
                 .then(response => response.json())
                 .then(json => setShops(json))
                 .catch(error => console.error(error))
-                .finally();
         }
         // GET FRUITS
         // else if (activeCategory == 2) {
@@ -54,7 +44,7 @@ const Home = ({ navigation, text, ...props }) => {
         //         .then(response => response.json())
         //         .then(json => setShops(json))
         //         .catch(error => console.error(error))
-        //         .finally();
+        //         .finally()
         // }
         // // GET VAGETABLES
         // else if (activeCategory == 3) {
@@ -62,7 +52,7 @@ const Home = ({ navigation, text, ...props }) => {
         //         .then(response => response.json())
         //         .then(json => setShops(json))
         //         .catch(error => console.error(error))
-        //         .finally();
+        //         .finally()
         // }
         // // GET GROCERY
         // else if (activeCategory == 4) {
@@ -70,13 +60,17 @@ const Home = ({ navigation, text, ...props }) => {
         //         .then(response => response.json())
         //         .then(json => setShops(json))
         //         .catch(error => console.error(error))
-        //         .finally();
+        //         .finally()
         // }
     }, [activeCategory])
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.content}>
+
+                <View style={styles.welcomeBox}>
+                    <Text style={styles.welcomeText}>{`LOGO Welcome`}</Text>
+                </View>
+
                 <ScrollView showsVerticalScrollIndicator={false}>
 
                     {/* HEADING */}
@@ -86,33 +80,36 @@ const Home = ({ navigation, text, ...props }) => {
                     <View>
                         <TextInput
                             style={[styles.input, { borderColor: visibleSearch == true ? Colors.primaryColor : Colors.grayLight }]}
-                            placeholderTextColor={Colors.Categories}
+                            onSubmitEditing={() => Keyboard.dismiss}
+                            placeholderTextColor={Colors.textLight}
                             placeholder="Search Food"
                             multiline={false}
                             numberOfLines={1}
                             value={search}
-                            onSubmitEditing={() => Keyboard.dismiss}
                             onChangeText={(text) => {
                                 setSearch(text) // hooks
-                                SearchShop(text) // function
+                                setTimeout(() => { SearchShop() }, 500)
                             }}
                             onBlur={() => {
-                                Keyboard.dismiss
                                 setVisibleSearch(false)
+                                Keyboard.dismiss
                             }}
                             onFocus={() => {
-                                Keyboard.dismiss
                                 setVisibleSearch(true)
+                                Keyboard.dismiss
                             }}
-
                         />
                     </View>
 
                     {/* CATEGORIES */}
                     <View style={styles.categoryView}>
-                        {AppCategories.map((item, index) => {
+                        {AppCategories.map((item) => {
                             return (
-                                <TouchableOpacity activeOpacity={0.8} key={item.id} style={{}}
+                                <TouchableOpacity activeOpacity={0.8} key={item.id}
+                                    style={{
+                                        borderBottomWidth: 1,
+                                        borderColor: item.id == activeCategory ? Colors.primaryColor : Colors.white
+                                    }}
                                     onPress={() => {
                                         item.id != 1
                                             ? Alert.alert('Alert Message', `\n${item.name} products is coming soon.\n`)
@@ -131,7 +128,7 @@ const Home = ({ navigation, text, ...props }) => {
                     <>
                         {shops.length == 0
                             && <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                                <ActivityIndicator size='large' color={Colors.primaryColor} style={{ flex: 1 }} />
+                                <ActivityIndicator size='large' color={Colors.primaryColor} style={{ flex: 1, marginTop: 20 }} />
                             </View>
                         }
                     </>
@@ -151,14 +148,13 @@ const Home = ({ navigation, text, ...props }) => {
                                     minOrder={item?.minimum_order}
                                     delivery_charges={item?.delivery_charges}
                                 />
-                            );
+                            )
                         })}
                     </>
 
                 </ScrollView>
-            </View>
         </SafeAreaView>
     )
 }
 
-export default Home;
+export default Home
