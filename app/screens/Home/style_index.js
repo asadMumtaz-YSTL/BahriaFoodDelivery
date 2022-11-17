@@ -11,11 +11,12 @@ export const styles = StyleSheet.create({
         // paddingBottom: 60,
     },
     welcomeBox: {
-        width: '100%',
-        height: 50,
+        backgroundColor: Colors.primaryColor,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: Colors.primaryColor
+        width: '100%',
+        height: 50,
+        flexDirection: 'row',
     },
     welcomeText: {
         paddingHorizontal: 20,
