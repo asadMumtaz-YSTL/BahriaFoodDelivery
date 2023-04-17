@@ -10,12 +10,16 @@ import {
     Image,
     View,
     Text,
+    StatusBar,
 } from 'react-native'
+
 import { Colors } from "../../styles/colors"
 import { styles } from "./style_index"
 import { AppCategories } from '../constantData/Data'
 import StoreCard from './components/StoreCard'
 
+import Header from "./Herder"
+import MyTextInput from '../components/TextInput'
 const logo = require('../../images/logo.png')
 
 const Home = ({ navigation, text, ...props }) => {
@@ -27,9 +31,15 @@ const Home = ({ navigation, text, ...props }) => {
     const [filteredData, setFilteredData] = useState([])
 
     // SEARCH SHOP
-    const SearchShop = () => {
-        const result = shops.filter(item => item?.name?.includes(search))
+    const SearchShop = (text) => {
+        console.log('its working...',text)
+        const result = shops.filter(item => item?.name?.includes(text))
+        console.log('its res...', result) 
         setFilteredData(result)
+    }
+
+    const kkk = (text) => {
+
     }
 
     // GET DATA ACCORDING TO SELECTED CATEGORY
@@ -70,11 +80,10 @@ const Home = ({ navigation, text, ...props }) => {
     return (
         <SafeAreaView style={styles.container}>
 
+            <StatusBar barStyle='dark-content' />
+
             {/* HEADER */}
-            <View style={styles.welcomeBox}>
-                <Text style={styles.welcomeText}>{`Bahria Food App`}</Text>
-                <Image source={logo} style={{ height: 40, width: 45 }} />
-            </View>
+            <Header title='Bahria Food Delivery' logo={logo} />
 
             <ScrollView showsVerticalScrollIndicator={false}>
 
@@ -82,6 +91,12 @@ const Home = ({ navigation, text, ...props }) => {
                 <Text style={styles.heading}>{`Find your food`}</Text>
 
                 {/* SEARCH */}
+                <MyTextInput
+                    placeholder='Search Food'
+                    SehShopss={()=> {SearchShop}}
+                    shops={shops}
+                />
+                
                 <View>
                     <TextInput
                         style={[styles.input, { borderColor: visibleSearch == true ? Colors.primaryColor : Colors.grayLight }]}
@@ -93,7 +108,7 @@ const Home = ({ navigation, text, ...props }) => {
                         value={search}
                         onChangeText={(text) => {
                             setSearch(text) // hooks
-                            setTimeout(() => { SearchShop() }, 500)
+                            setTimeout(() => { SearchShop(text) }, 500)
                         }}
                         onBlur={() => {
                             setVisibleSearch(false)

@@ -10,22 +10,6 @@ export const styles = StyleSheet.create({
     content: {
         // paddingBottom: 60,
     },
-    welcomeBox: {
-        backgroundColor: Colors.primaryColor,
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100%',
-        height: 50,
-        flexDirection: 'row',
-    },
-    welcomeText: {
-        paddingHorizontal: 20,
-        color: Colors.white,
-        fontWeight: 'bold',
-        letterSpacing: 0.9,
-        lineHeight: 35,
-        fontSize: 20,
-    },
     heading: {
         paddingHorizontal: 20,
         color: Colors.black,
